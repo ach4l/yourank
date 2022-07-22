@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery/dataTables.bootstrap.min.css" />
+        <link type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="static/icon2.PNG">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BXVSXZ8WV5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BXVSXZ8WV5');
+</script>
+  </head>
+
+<title>Personalised College Rankings</title>
+
+
+<style>
+$black: #282828;
+$point: salmon;
+$point-light: lighten($point, 5%);
+
+$ratio: 1.618;
+$card_width: 250px;
+$card_height: $card_width * $ratio;
+$card_padding: 20px;
+$card-bgcolor: white;
+$card_margin: 5px;
+$card_round: 10px;
+$card-shadow: -20px -20px 0px 0px $point-light;
+
+$card-padding-basis: 15px;
+$card_head_padding: 0px 0px $card-padding-basis 0px;
+
+.back-to-top {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  border-radius: 100%;
+  background: #141c38;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  opacity: 100%;
+  transition: opacity 0.5s;
+}
+
+.back-to-top:hover {
+  opacity: 60%;
+}
+
+.hidden {
+  opacity: 0%;
+}
+
+.back-to-top-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #7ac9f9;
+}
+
+#myBtn2 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: gray; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#myBtn2:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+}
+
+*{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+.center{
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.centerlogo {
+  display: block;
+  margin-top: 0vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 500px;
+}
+
+.card{
+  background-color: $card-bgcolor;
+  width: $card_width;
+  min-height: $card_height;
+
+  display: -webkit-box;
+
+  display: -ms-flexbox;
+
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: $card_padding;
+  margin: $card_margin;
+
+  -webkit-box-shadow: $card-shadow;
+
+          box-shadow: $card-shadow;
+  border-radius: $card_round;
+
+  -webkit-animation-name: shadow-show; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+  animation-name: shadow-show;
+  animation-duration: 1.5s;
+
+  -webkit-transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000);
+  -o-transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000);
+  transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000); /* custom */
+
+
+  h1,h2,h3,h4,h5{
+    margin: 0px;
+    padding: $card_head_padding;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 30px;
+    color: $black;
+  }
+
+  hr{
+    display: block;
+    border: none;
+    height: 3px;
+    background-color: $point;
+    margin: 0px;
+
+    -webkit-animation-name: line-show; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 0.3s; /* Safari 4.0 - 8.0 */
+    animation-name: line-show;
+    animation-duration: 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000);
+    -o-transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000);
+    transition-timing-function: cubic-bezier(0.795, 0.000, 0.165, 1.000); /* custom */
+  }
+
+
+  button{
+    border: none;
+    background-color: $point;
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px 30px;
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-transform: uppercase;
+  }
+
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes line-show {
+  from {margin: 0px 100px;}
+  to {margin: 0px;}
+}
+
+/* Standard syntax */
+@keyframes line-show {
+  from {margin: 0px 100px;}
+  to {margin: 0px;}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes p-show {
+  from {color: white;}
+  to {color: $black;}
+}
+
+/* Standard syntax */
+@keyframes p-show {
+  from {color: white;}
+  to {color: $black;}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes shadow-show {
+  from {
+    -webkit-box-shadow: 0px 0px 0px 0px #e0e0e0;
+    box-shadow: 0px 0px 0px 0px #e0e0e0;
+  }
+  to {
+    -webkit-box-shadow: $card-shadow;
+    box-shadow: $card-shadow;
+  }
+}
+
+/* Standard syntax */
+@keyframes shadow-show {
+  from {-webkit-box-shadow: 0px 0px 0px 0px #e0e0e0;box-shadow: 0px 0px 0px 0px #e0e0e0;}
+  to {-webkit-box-shadow: $card-shadow;box-shadow: $card-shadow;}
+}
+
+input[type='range'] {
+  background-color:#ddd;
+  overflow: hidden;
+  width: 60vw;
+}
+
+.input[type="range"]::-moz-range-progress {
+  background-color: #586c44;
+  height: 20px
+}
+.input[type="range"]::-ms-fill-upper {
+  background-color: #ddd;
+}
+.input[type="range"]::-ms-fill-lower {
+  background-color: #586c44;
+}
+
+</style>
+
+    </head>
+    <body>
+        <button onclick="topFunction()" id="myBtn2" title="Go to top">⏏</button>
+        <a><img src="static/logo_blue.PNG" alt="Try it out!" class='centerlogo'></a>
+    <div class="container">
+        <div class="container center">
+                <div class="card">
+                    <br>
+                    <p>
+                    <h5 style="text-align:center; padding:none;">Choose what is important for YOU. </h5>
+                    <h5 style="text-align:center; padding:none;">Find what is best for YOU. </h5></p>
+                    <h6 style="text-align:center;">* All Data from <a href="https://nirfindia.org">NIRF</a> </h6>
+                </div>
+        </div>
+
+
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="container center">
+                <div class="card">
+                    <h2 style="text-align:center;">Resources</h2>
+                    <p>Student Strength: <input name="SS" type="range" min="0" max="10" value={{weight.0}} class="slider" id="myRange">
+                    Faculty Student Ratio: <input name="FSR" type="range" min="0" max="10" value={{weight.1}} class="slider" id="myRange">
+                    Faculty Quality: (Measures proportion of Faculty with PhD) <input name="FQE" type="range" min="0" max="10" value={{weight.2}} class="slider" id="myRange">
+                    Financial Resources and Utilisation (Higher fees generally): <input name="FRU" type="range" min="0" max="10" value={{weight.3}} class="slider" id="myRange"></p>
+                </div>
+            </div>
+
+            <div class="container center">
+                <div class="card">
+                    <h2 style="text-align:center;">Research and Development</h2>
+                    <p>Publications (Careful, its just the number of publications, not quality): <input name="PU" type="range" min="0" max="10" value={{weight.4}} class="slider" id="myRange">
+            Citations (Measures Quality of Research): <input name="QP" type="range" min="0" max="10" value={{weight.5}} class="slider" id="myRange">
+            Intellectual Property Rights (Careful, more faculty means more patents. Not a reliable measure): <input name="IPR" type="range" min="0" max="10" value={{weight.6}} class="slider" id="myRange">
+            Funded Projects: (Measures the amount of funding recieved by college for projects) <input name="FPPP" type="range" min="0" max="10" value={{weight.7}} class="slider" id="myRange"></p>
+                </div>
+            </div>
+
+            <div class="container center">
+                <div class="card">
+                    <h2 style="text-align:center;">After Graduation</h2>
+                    <p>Placement and Higher Studies: (Measures proportion of students with job or masters offer) <input name="GPH" type="range" min="0" max="10" value={{weight.8}} class="slider" id="myRange">
+            University Examination (Measures if 80% people graduated): <input name="GUE" type="range" min="0" max="10" value={{weight.9}} class="slider" id="myRange">
+            Salary: (Measures salary of average student) <input name="GMS" type="range" min="0" max="10" value={{weight.10}} class="slider" id="myRange">
+            Number of PhD Students (Careful, more faculty means more PhD students. Not a reliable measure): <input name="GPHD" type="range" min="0" max="10" value={{weight.11}} class="slider" id="myRange"></p>
+                </div>
+            </div>
+
+            <div class="container center">
+                <div class="card">
+                    <h2 style="text-align:center;">Diversity</h2>
+                    <p>Regional Diversity : <input name="RD" type="range" min="0" max="10" value={{weight.12}} class="slider" id="myRange">
+            Woman Diversity: <input name="WD" type="range" min="0" max="10" value={{weight.13}} class="slider" id="myRange">
+            Economically challenged: <input name="ESCS" type="range" min="0" max="10" value={{weight.14}} class="slider" id="myRange">
+            Facilities for Physically Challenged: <input name="PCS" type="range" min="0" max="10" value={{weight.15}} class="slider" id="myRange"></p>
+                </div>
+            </div>
+
+            <div class="container center">
+                <div class="card">
+                    <h2 style="text-align:center;">Reputation</h2>
+                    <p>Peer Perception (Subjective Measure from surveys): <input name="PR" type="range" min="0" max="10" value={{weight.16}} class="slider" id="myRange"> </p>                </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="container center">
+
+                <div class="card">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Rank Universities</button>
+                    </div>
+            </div>
+
+
+        </form>
+</div><!-- /.container -->
+
+<div class="container">
+
+    <hr>
+      <div class="header">
+      </div>
+      {% block content %}
+      <div>
+        {{data | safe}}
+      </div>
+      {% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('#example').DataTable({
+    order: [[3, 'asc']],
+    pageLength: 100,
+    'columns' : [
+        {'visible' : false },
+        null,
+        null,
+        null,
+        null,
+
+    ]
+});
+        });
+
+    //Get the button:
+    var mybutton = document.getElementById("myBtn2");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+
+    const showOnPx = 100;
+const backToTopButton = document.querySelector(".back-to-top");
+
+
+const scrollContainer = () => {
+  return document.documentElement || document.body;
+};
+
+const goToTop = () => {
+  document.body.scrollIntoView({
+    behavior: "smooth"
+  });
+};
+
+document.addEventListener("scroll", () => {
+  console.log("Scroll Height: ", scrollContainer().scrollHeight);
+  console.log("Client Height: ", scrollContainer().clientHeight);
+
+
+
+
+
+  if (scrollContainer().scrollTop > showOnPx) {
+    backToTopButton.classList.remove("hidden");
+  } else {
+    backToTopButton.classList.add("hidden");
+  }
+});
+
+backToTopButton.addEventListener("click", goToTop);
+
+    </script>
+
+
+{% if scroll %}
+<script>
+    document.getElementById('{{ scroll }}').scrollIntoView();
+    // or
+    document.location.hash = '#' + '{{ scroll }}';
+</script>
+{% endif %}
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
